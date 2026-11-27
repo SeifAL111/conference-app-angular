@@ -1,42 +1,76 @@
-import { Component } from '@angular/core';
-import { DatePipe, UpperCasePipe } from '@angular/common';
-
-export interface Conference {
-  picture: string;
-  title: string;
-  date: Date;
-  adress: string;
-  available_Places: number;
-}
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Conference } from '../models/conference';
+import { Organizer } from '../models/organizer';
+import { OrganizerList } from '../components/organizer-list/organizer-list';
 
 @Component({
   selector: 'app-home',
-  imports: [DatePipe, UpperCasePipe],
+  imports: [CommonModule, FormsModule, OrganizerList],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {
-  conferences: Conference[] = [
+export class Home implements OnInit {
+  title: string;
+  listConferences: Conference[];
+  searchTitle: string = '';
+
+  organizers: Organizer[] = [
     {
-      picture: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800',
-      title: 'Angular 21 Conference',
-      date: new Date('2027-11-15'),
-      adress: 'Tunis, Centre Urbain Nord',
-      available_Places: 25,
+      id: 1,
+      name: 'Camille Laurent',
+      email: 'camille.laurent@exemple.fr',
+      picture: '/images/organizers/o1.svg',
+      university: 'Université Paris-Saclay',
     },
     {
-      picture: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800',
-      title: 'Signals Workshop',
-      date: new Date('2027-11-30'),
-      adress: 'Ariana, Technopole El Ghazala',
-      available_Places: 6,
+      id: 2,
+      name: 'Lucas Moreau',
+      email: 'lucas.moreau@exemple.fr',
+      picture: '/images/organizers/o2.svg',
+      university: 'Sorbonne Université',
     },
     {
-      picture: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800',
-      title: 'Web Architecture Summit',
-      date: new Date('2027-11-20'),
-      adress: 'Sousse, Technopôle',
-      available_Places: 0,
+      id: 3,
+      name: 'Élodie Bernard',
+      email: 'elodie.bernard@exemple.fr',
+      picture: '/images/organizers/o3.svg',
+      university: 'Université de Lyon',
     },
   ];
+
+  constructor() {}
+
+  ngOnInit(): void {
+    this.title = 'Home 4DAS 9';
+    this.listConferences = [
+      {
+        id: 1,
+        title: 'Angular Conference',
+        description: 'Angular Conference Developer',
+        address: 'ESPRIT-Tunisia',
+        nbr_Max: 50,
+        nbr_Participation: 48,
+        date: '10-12-2026',
+        picture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv8Q9Y17iP9yV07pJQIuBtfKqoy5nKcP_GiIamFG9udg&s=10',
+        organizers: [this.organizers[0], this.organizers[1]],
+      },
+      {
+        id: 2,
+        title: 'Angular React',
+        description: 'Angular Conference Developer',
+        address: 'ESPRIT-Tunisia',
+        nbr_Max: 50,
+        nbr_Participation: 50,
+        date: '10-11-2026',
+        picture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5agxXUSsI3J6nJYssKdxaZEO5xpTCsh4P6U4qKGXH2w&s=10',
+        organizers: [],
+      },
+    ];
+  }
+
+  participate(conference: Conference): void {
+    conference.nbr_Participation++;
+  }
 }

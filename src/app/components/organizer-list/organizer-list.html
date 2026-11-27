@@ -1,0 +1,28 @@
+<section class="mt-4">
+  <h3>Organisateurs ({{ organizers.length }})</h3>
+
+  <div class="row g-3 mt-1">
+    @for (organizer of organizers; track organizer.id) {
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img
+            [src]="organizer.picture"
+            [alt]="organizer.name"
+            class="card-img-top"
+            style="height: 200px; object-fit: cover;"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ organizer.name }}</h5>
+            <p class="card-text mb-1">
+              <strong>Email :</strong>
+              <a [href]="'mailto:' + organizer.email">{{ organizer.email }}</a>
+            </p>
+            <p class="card-text">
+              <strong>Université :</strong> {{ organizer.university }}
+            </p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>
